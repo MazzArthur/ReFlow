@@ -6,6 +6,9 @@ import requests
 import streamlink
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 
+client_id = os.environ.get('CLIENT_ID')
+client_secret = os.environ.get('CLIENT_SECRET')
+stream_key = os.environ.get('STREAM_KEY')
 app = Flask(__name__)
 app.secret_key = 'sua_chave_secreta_aqui'
 
