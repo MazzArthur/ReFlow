@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reflow - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <img src="{{ url_for('static', filename='reflow_logo.png') }}" alt="Reflow Logo" class="logo" />
+        <h1>Reflow</h1>
+        <form method="post" action="{{ url_for('do_login') }}">
+            <label>Client ID</label>
+            <input type="text" name="client_id" required />
+            <label>Client Secret</label>
+            <input type="password" name="client_secret" required />
+            <label>Username</label>
+            <input type="text" name="username" required />
+            <label>Stream Key</label>
+            <input type="text" name="stream_key" required />
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reflow - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='reflow_logo.png') }}" alt="Reflow Logo" class="logo" />
+        <h1>Reflow</h1>
+    </header>
+    <main>
+        <section class="user-info">
+            <p>Usuário: <strong>{{ username }}</strong></p>
+        </section>
+
+        <form method="post" action="{{ url_for('iniciar') }}" id="vodForm">
+            <div class="vod-list-container">
+                <h2>Selecione os VODs para retransmitir</h2>
+                <div class="vod-list">
+                    {% for vod in vods %}
+                    <label class="vod-item">
+                        <input type="checkbox" name="vod_urls" value="{{ vod.url }}" />
+                        <img class="vod-thumb" src="{{ vod.thumbnail_url.replace('%{width}', '320').replace('%{height}', '180') }}" alt="Miniatura do VOD" />
+                        <div class="vod-info">
+                            <p class="vod-title">{{ vod.title }}</p>
+                            <p class="vod-date">{{ vod.published_at[:10] }}</p>
+                            <p class="vod-duration">{{ vod.duration }}</p>
+                        </div>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn start-btn">Iniciar Transmissão</button>
+                <button type="button" class="btn stop-btn" id="stopBtn">Encerrar Transmissão</button>
+            </div>
+        </form>
+
+        <section class="status">
+            <p>Status: <span id="statusText">{{ status.status }}</span></p>
+        </section>
+    </main>
+
+<script>
+    document.getElementById('stopBtn').addEventListener('click', () => {
+        fetch('{{ url_for("encerrar") }}', { method: 'POST' })
+        .then(() => {
+            document.getElementById('statusText').textContent = 'Parado';
+        });
+    });
+</script>
+
+</body>
+</html>
