@@ -45,6 +45,10 @@ def get_m3u8_url(vod_url, quality):
 def login():
     return render_template("login.html")
 
+@app.route('/ping')
+def ping():
+    return 'pong', 200
+
 @app.route('/login', methods=['POST'])
 def do_login():
     client_id = request.form['client_id']
